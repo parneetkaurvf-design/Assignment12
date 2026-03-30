@@ -1,0 +1,33 @@
+name: Python Application Automated Testing
+
+on:
+  push:
+
+jobs:
+  automated-tests:
+    name: Run Automated Test Cases
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 - Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Step 2 - Set Up Python Environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Step 3 - Execute Test Case 1 (10 Numbers)
+        run: |
+          python3 find_lowest_number.py test_data/test1_input.txt test1_output.txt
+          diff test1_output.txt test_data/test1_expected.txt
+
+      - name: Step 4 - Execute Test Case 2 (Single Number)
+        run: |
+          python3 find_lowest_number.py test_data/test2_input.txt test2_output.txt
+          diff test2_output.txt test_data/test2_expected.txt
+
+      - name: Step 5 - Execute Test Case 3 (Empty File)
+        run: |
+          python3 find_lowest_number.py test_data/test3_input.txt test3_output.txt
+          diff test3_output.txt test_data/test3_expected.txt
